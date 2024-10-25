@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Bodas</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .container {
+            background-color: #418644;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .container:hover {
+            transform: scale(1.02);
+        }
+        h1 {
+            font-size: 30px;
+            color: #ffffff;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        input {
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            margin-bottom: 20px;
+            border: 2px solid #ffffff;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+        input:focus {
+            outline: none;
+            border-color: #65cc76;
+            background-color: #ffffff;
+        }
+        button {
+            padding: 15px 20px;
+            width: 100%;
+            font-size: 18px;
+            background-color: #065e09;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        .result {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #65cc76;
+            transition: opacity 0.3s ease;
+        }
+        .result.hidden {
+            opacity: 0;
+        }
+        .result.visible {
+            opacity: 1;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #e4e4e4;
+        }
+        /* Responsividade */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+            button {
+                font-size: 16px;
+            }
+            input {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Bodas Didi e Gab</h1>
+        <p>Coloca a data que a gente começou, bê:</p>
+        <input type="date" id="dataInicio">
+        <button onclick="calcularBodas()">Calcular Bodas</button>
+
+        <div class="result hidden" id="resultado"></div>
+        
+        <div class="footer">
+            <p>Para a Didi! ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function calcularBodas() {
+            const dataInicio = new Date(document.getElementById('dataInicio').value);
+            
+            if (isNaN(dataInicio)) {
+                document.getElementById('resultado').innerHTML = 'Coloca uma data válida, bê.';
+                document.getElementById('resultado').classList.remove('visible');
+                document.getElementById('resultado').classList.add('hidden');
+                return;
+            }
+
+            const dataAtual = new Date();
+            const diffMilissegundos = dataAtual - dataInicio;
+            const diffDias = Math.floor(diffMilissegundos / (1000 * 60 * 60 * 24));
+
+            let resultado = '';
+
+            // Bodas Semanais (até 4 semanas)
+            if (diffDias <= 7) {
+                resultado = 'Bodas de Sorriso (1 semana)';
+            } else if (diffDias <= 14) {
+                resultado = 'Bodas de Abraço (2 semanas)';
+            } else if (diffDias <= 21) {
+                resultado = 'Bodas de Carinho (3 semanas)';
+            } else if (diffDias <= 28) {
+                resultado = 'Bodas de Doçura (4 semanas)';
+            }
+
+            // Cálculo de diferença em meses e anos
+            const diffAnos = dataAtual.getFullYear() - dataInicio.getFullYear();
+            const diffMeses = (diffAnos * 12) + (dataAtual.getMonth() - dataInicio.getMonth());
+
+            // Bodas Mensais
+            if (diffMeses === 1) {
+                resultado = 'Bodas de Beijinho (1 mês)';
+            } else if (diffMeses === 2) {
+                resultado = 'Bodas de Sorvete (2 meses)';
+            } else if (diffMeses === 3) {
+                resultado = 'Bodas de Algodão-doce (3 meses)';
+            } else if (diffMeses === 4) {
+                resultado = 'Bodas de Pipoca (4 meses)';
+            } else if (diffMeses === 5) {
+                resultado = 'Bodas de Chocolate (5 meses)';
+            } else if (diffMeses === 6) {
+                resultado = 'Bodas de Pluminha (6 meses)';
+            } else if (diffMeses === 7) {
+                resultado = 'Bodas de Purpurina (7 meses)';
+            } else if (diffMeses === 8) {
+                resultado = 'Bodas de Pompom (8 meses)';
+            } else if (diffMeses === 9) {
+                resultado = 'Bodas de Maternidade (9 meses)';
+            } else if (diffMeses === 10) {
+                resultado = 'Bodas de Pintinhos (10 meses)';
+            } else if (diffMeses === 11) {
+                resultado = 'Bodas de Chiclete (11 meses)';
+            } else if (diffMeses === 12) {
+                resultado = 'Bodas de Papel (1 ano)';
+            }
+
+            // Bodas Anuais
+            if (diffAnos === 1) {
+                resultado = 'Bodas de Papel (1 ano)';
+            } else if (diffAnos === 2) {
+                resultado = 'Bodas de Algodão (2 anos)';
+            } else if (diffAnos === 3) {
+                resultado = 'Bodas de Trigo (3 anos)';
+            } else if (diffAnos === 5) {
+                resultado = 'Bodas de Madeira (5 anos)';
+            } else if (diffAnos === 10) {
+                resultado = 'Bodas de Estanho (10 anos)';
+            } else if (diffAnos === 25) {
+                resultado = 'Bodas de Prata (25 anos)';
+            } else if (diffAnos === 50) {
+                resultado = 'Bodas de Ouro (50 anos)';
+            }
+
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.innerHTML = resultado || 'Muito longe, depois eu adiciono, bê!';
+            resultadoDiv.classList.remove('hidden');
+            resultadoDiv.classList.add('visible');
+        }
+    </script>
+
+</body>
+</html>
